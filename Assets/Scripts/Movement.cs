@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     private Vector2 input;
     private Vector2 targetPosition;
     private bool isMoving = false;
+    private Coroutine moveTask;
 
     void Start()
     {
@@ -37,7 +38,7 @@ public class Movement : MonoBehaviour
         if (input != Vector2.zero)
         {
             Vector2 newTarget = targetPosition + input * gridSize;
-            StartCoroutine(MoveTo(newTarget));
+            moveTask = StartCoroutine(MoveTo(newTarget));
         }
     }
 
@@ -55,14 +56,28 @@ public class Movement : MonoBehaviour
 
         while (elapsed < moveTime)
         {
-            transform.position = Vector2.Lerp(start, destination, elapsed / moveTime);
+            Vector2 nextPos = Vector2.Lerp(start, destination, elapsed / moveTime);
             elapsed += Time.deltaTime;
+            //new
+            rb.MovePosition(nextPos);
             yield return null;
         }
 
-        transform.position = destination;
+        
+        //transform.position = destination;
         targetPosition = destination;
+        rb.MovePosition(targetPosition);
 
         isMoving = false;
     }
+
+    /*void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (moveTask != null)
+        {
+            StopCoroutine(moveTask);
+            moveTask = null;
+            Debug.Log("I HIT SOMETHING");
+        }
+    }*/
 }
