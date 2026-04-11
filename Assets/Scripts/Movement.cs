@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     private Vector2 targetPosition;
     private bool isMoving = false;
     private Coroutine moveTask;
+    public ParticleSystem dustFX;
 
     void Start()
     {
@@ -26,14 +27,21 @@ public class Movement : MonoBehaviour
 
         // Horizontal
         if (Keyboard.current.aKey.wasPressedThisFrame)
+        {
             input = Vector2.left;
-        else if (Keyboard.current.dKey.wasPressedThisFrame)
+            //dustFX.Play();
+        } else if (Keyboard.current.dKey.wasPressedThisFrame) {
             input = Vector2.right;
-        else if (Keyboard.current.sKey.wasPressedThisFrame) //vertical
-            input = Vector2.down;
-        else if (Keyboard.current.wKey.wasPressedThisFrame)
+            //dustFX.Play();
+        } else if (Keyboard.current.sKey.wasPressedThisFrame) //vertical
+            { 
+                input = Vector2.down;
+                //dustFX.Play();
+        }else if (Keyboard.current.wKey.wasPressedThisFrame) 
+        {
             input = Vector2.up;
-
+            //dustFX.Play();
+        }
         input.Normalize();
         if (input != Vector2.zero)
         {
