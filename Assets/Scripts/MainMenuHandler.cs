@@ -9,7 +9,7 @@ public class MainMenuHandler : MonoBehaviour
     {
         //dotween? animation effect 
         //scene manager load into the scene of the main gameplay
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
         //add loading screen?
     }
 
