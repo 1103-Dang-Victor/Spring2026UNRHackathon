@@ -12,6 +12,9 @@ public class Movement : MonoBehaviour
     private Vector2 targetPosition;
     private bool isMoving = false;
     private Coroutine moveTask;
+    public Player_Combat player_Combat;
+
+
 
     void Start()
     {
@@ -39,6 +42,9 @@ public class Movement : MonoBehaviour
         {
             Vector2 newTarget = targetPosition + input * gridSize;
             moveTask = StartCoroutine(MoveTo(newTarget));
+        }
+        if (Keyboard.current != null && Keyboard.current[Key.Space].wasPressedThisFrame){ 
+            player_Combat.Attack(); 
         }
     }
 
