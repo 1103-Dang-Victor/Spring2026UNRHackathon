@@ -12,9 +12,29 @@ public class PlayerItemsUI : MonoBehaviour
         playerItemText.text = "empty";
     }
 
-    // Update is called once per frame
-    void Update()
+    public char[] CalculateNewItemString(char newItem)
     {
-        
+        char[] display = new char[20];
+        if (playerItemText.text == "empty")
+        {
+            display[0] = newItem;
+        } else
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                if (display[i] == '-')
+                {
+                    display[i] = newItem;
+                    break;
+                }
+            }
+        }
+        return display;
+    }
+
+    private void updateItemList(char newItem)
+    {
+        ItemsList = new string(CalculateNewItemString(newItem));
+        playerItemText.text = ItemsList;
     }
 }
