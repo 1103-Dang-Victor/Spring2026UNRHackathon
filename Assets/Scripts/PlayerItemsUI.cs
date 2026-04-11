@@ -9,7 +9,7 @@ public class PlayerItemsUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerItemText.text = "empty";
     }
 
     // Update is called once per frame
