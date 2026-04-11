@@ -21215,7 +21215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5db209fe70e006a4d83917edce22fbcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Movement
-  speed: 500
+  moveTime: 0.15
+  player_Combat: {fileID: 2023284206}
 --- !u!50 &2023284202
 Rigidbody2D:
   serializedVersion: 5
@@ -21348,10 +21349,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2023284200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9da25d0178b342f4e862f0cb8f4037c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bdec5a7c8b114d47b9cecb495dbd6e6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::test
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Combat
   anim: {fileID: 2023284205}
+  cooldown: 0.7
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
