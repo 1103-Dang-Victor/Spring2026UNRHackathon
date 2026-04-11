@@ -13,11 +13,16 @@ public class PlayerStatsUI : MonoBehaviour
         playerStatsText.text = "======================";
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
-        
+        PlayerStatHandler.OnHealthChanged += updateHealthBar;
     }
+
+    void OnDisable()
+    {
+        PlayerStatHandler.OnHealthChanged -= updateHealthBar;
+    }
+
 
     public char[] calculateNewHealthString(int newHealth, int maxHealth)
     {
@@ -36,7 +41,7 @@ public class PlayerStatsUI : MonoBehaviour
         return display;
     }
 
-    private void updateHealthBar(int newHealth, int maxHealth)
+    public void updateHealthBar(int newHealth, int maxHealth)
     {
         PlayerHealth = new string(calculateNewHealthString(newHealth, maxHealth));
         playerStatsText.text = PlayerHealth;

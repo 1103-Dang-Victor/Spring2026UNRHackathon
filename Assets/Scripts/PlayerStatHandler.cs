@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerStatHandler : MonoBehaviour
@@ -7,7 +8,7 @@ public class PlayerStatHandler : MonoBehaviour
     private int currentShield;
     private int maxShield;
     private int currentDamage;
-    
+    public static event Action<int, int> OnHealthChanged;
 
     void Start()
     {
@@ -66,6 +67,7 @@ public class PlayerStatHandler : MonoBehaviour
     private void addToCurrentHealth(int newValue)
     {
         currentHealth += newValue;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     private void subtractFromCurrentHealth(int newValue)
@@ -76,6 +78,7 @@ public class PlayerStatHandler : MonoBehaviour
     private void updateMaxHealth(int newValue)
     {
         maxHealth += newValue;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     private void subtractMaxHealth(int newValue)

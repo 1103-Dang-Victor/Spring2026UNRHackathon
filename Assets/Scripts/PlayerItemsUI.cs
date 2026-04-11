@@ -12,6 +12,16 @@ public class PlayerItemsUI : MonoBehaviour
         playerItemText.text = "empty";
     }
 
+    void OnEnable()
+    {
+        PowerUpHandler.OnItemCollected += updateItemList;
+    }
+
+    void OnDisable()
+    {
+        PowerUpHandler.OnItemCollected -= updateItemList;
+    }
+
     public char[] CalculateNewItemString(char newItem)
     {
         char[] display = new char[20];

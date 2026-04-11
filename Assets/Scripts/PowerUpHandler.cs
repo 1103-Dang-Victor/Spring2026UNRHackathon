@@ -13,6 +13,7 @@ public class PowerUpHandler : MonoBehaviour
     public static event Action<int> MaxHealthPowerUp;
     public static event Action<int> DamagePowerUp;
     public static event Action<int> CurrentHealthPowerUp;
+    public static event Action<char> OnItemCollected;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,12 +58,15 @@ public class PowerUpHandler : MonoBehaviour
             switch (spriteTitle) // get type of powerup based on sprite
             {
                 case "gs_plus": // current health 
+                    OnItemCollected?.Invoke('+');
                     GrabbedCurrentHealthPowerUp(PowerUpStats.statBonus);
                     break;
                 case "gs_star": // max health 
+                OnItemCollected?.Invoke('*');
                     GrabbedMaxHealthPowerUp(PowerUpStats.statBonus);
                     break;
                 case "gs_carat": // damage
+                    OnItemCollected?.Invoke('^');
                     GrabbedDamagePowerUp(PowerUpStats.statBonus);
                     break;
                 default:
