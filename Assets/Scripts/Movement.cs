@@ -1,68 +1,38 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem; // NEW
 
 public class Movement : MonoBehaviour
 {
-    //made with help of chatgpt to speed up dev time 
-    public float moveTime = 0.15f;
-    private float gridSize = 160f;
+    public float speed = 0.5f;
     private Rigidbody2D rb;
     private Vector2 input;
-    private Vector2 targetPosition;
-    private bool isMoving = false;
 
     void Start()
     {
-        targetPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if (isMoving) return;
         input = Vector2.zero;
 
         // Horizontal
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-            input = Vector2.left;
-        else if (Keyboard.current.dKey.wasPressedThisFrame)
-            input = Vector2.right;
-        else if (Keyboard.current.sKey.wasPressedThisFrame) //vertical
-            input = Vector2.down;
-        else if (Keyboard.current.wKey.wasPressedThisFrame)
-            input = Vector2.up;
+        if (Keyboard.current.aKey.isPressed)
+            input.x = -1;
+        if (Keyboard.current.dKey.isPressed)
+            input.x = 1;
+
+        // Vertical
+        if (Keyboard.current.sKey.isPressed)
+            input.y = -1;
+        if (Keyboard.current.wKey.isPressed)
+            input.y = 1;
 
         input.Normalize();
-        if (input != Vector2.zero)
-        {
-            Vector2 newTarget = targetPosition + input * gridSize;
-            StartCoroutine(MoveTo(newTarget));
-        }
     }
 
     void FixedUpdate()
     {
-        //rb.linearVelocity = input * speed;
-    }
-
-    IEnumerator MoveTo(Vector2 destination)
-    {
-        isMoving = true;
-
-        Vector2 start = transform.position;
-        float elapsed = 0f;
-
-        while (elapsed < moveTime)
-        {
-            transform.position = Vector2.Lerp(start, destination, elapsed / moveTime);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.position = destination;
-        targetPosition = destination;
-
-        isMoving = false;
+        rb.linearVelocity = input * speed;
     }
 }
