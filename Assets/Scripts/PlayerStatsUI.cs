@@ -10,12 +10,35 @@ public class PlayerStatsUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerStatsText.text = "======================";
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public char[] calculateNewHealthString(int newHealth, int maxHealth)
+    {
+        int healthClamp = Mathf.Clamp(newHealth, 0, maxHealth);
+        char[] display = new char[maxHealth];
+        for (int i = 0; i < maxHealth; i++)
+        {
+            if (i < healthClamp)
+            {
+                display[i] = '='; //health value
+            } else
+            {
+                display[i] = '-'; //empty value/lost health
+            }
+        }
+        return display;
+    }
+
+    private void updateHealthBar(int newHealth, int maxHealth)
+    {
+        PlayerHealth = new string(calculateNewHealthString(newHealth, maxHealth));
+        playerStatsText.text = PlayerHealth;
     }
 }
