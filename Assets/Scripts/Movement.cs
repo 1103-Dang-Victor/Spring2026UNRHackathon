@@ -1,96 +1,95 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem; // NEW
+using UnityEngine.InputSystem;
+
 
 public class Movement : MonoBehaviour
 {
-    //made with help of chatgpt to speed up dev time 
     public float moveTime = 0.15f;
-    private float gridSize = 160f;
-    private Rigidbody2D rb;
-    private Vector2 input;
-    private Vector2 targetPosition;
-    private bool isMoving = false;
-    private Coroutine moveTask;
+    public float gridSize = 350f;
+    public float stunDuration = 0.4f;
 
-    public Player_Combat player_Combat;
+
+    private Rigidbody2D rb;
+    private Vector2 currentGridPos;
+    private bool isMoving = false;
+    private float stunTimer = 0f;
 
 
     void Start()
     {
-        targetPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
+        rb.freezeRotation = true;
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+
+        SnapToGrid();
     }
+
 
     void Update()
     {
+        if (stunTimer > 0) { stunTimer -= Time.deltaTime; return; }
         if (isMoving) return;
-        input = Vector2.zero;
 
-        // Horizontal
-        if (Keyboard.current.aKey.wasPressedThisFrame)
-        {
-            input = Vector2.left;
-            //dustFX.Play();
-        } else if (Keyboard.current.dKey.wasPressedThisFrame) {
-            input = Vector2.right;
-            //dustFX.Play();
-        } else if (Keyboard.current.sKey.wasPressedThisFrame) //vertical
-            { 
-                input = Vector2.down;
-                //dustFX.Play();
-        }else if (Keyboard.current.wKey.wasPressedThisFrame) 
-        {
-            input = Vector2.up;
-            //dustFX.Play();
-        }
-        input.Normalize();
+
+        Vector2 input = Vector2.zero;
+        if (Keyboard.current.aKey.wasPressedThisFrame)      input = Vector2.left;
+        else if (Keyboard.current.dKey.wasPressedThisFrame) input = Vector2.right;
+        else if (Keyboard.current.sKey.wasPressedThisFrame) input = Vector2.down;
+        else if (Keyboard.current.wKey.wasPressedThisFrame) input = Vector2.up;
+
+
         if (input != Vector2.zero)
-        {
-            Vector2 newTarget = targetPosition + input * gridSize;
-            moveTask = StartCoroutine(MoveTo(newTarget));
-        }
-        if (Keyboard.current != null && Keyboard.current[Key.Space].wasPressedThisFrame){ 
-            player_Combat.Attack(); 
-        }
+            StartCoroutine(MoveTo(currentGridPos + (input * gridSize)));
     }
 
-    void FixedUpdate()
-    {
-        //rb.linearVelocity = input * speed;
-    }
 
     IEnumerator MoveTo(Vector2 destination)
     {
         isMoving = true;
-
-        Vector2 start = transform.position;
         float elapsed = 0f;
+        Vector2 startPos = currentGridPos;
+
 
         while (elapsed < moveTime)
         {
-            Vector2 nextPos = Vector2.Lerp(start, destination, elapsed / moveTime);
+            rb.MovePosition(Vector2.Lerp(startPos, destination, elapsed / moveTime));
             elapsed += Time.deltaTime;
-            //new
-            rb.MovePosition(nextPos);
             yield return null;
         }
 
-        
-        //transform.position = destination;
-        targetPosition = destination;
-        rb.MovePosition(targetPosition);
 
+        rb.MovePosition(destination);
+        currentGridPos = destination;
         isMoving = false;
     }
 
-    /*void OnCollisionEnter2D(Collision2D collision)
+
+    public void OnHitByEnemy()
     {
-        if (moveTask != null)
-        {
-            StopCoroutine(moveTask);
-            moveTask = null;
-            Debug.Log("I HIT SOMETHING");
-        }
-    }*/
+        // Ignore if already stunned — prevents multiple enemies stacking stuns
+        // on the same frame
+        if (stunTimer > 0) return;
+
+
+        StopAllCoroutines();
+        isMoving = false;
+        stunTimer = stunDuration;
+        rb.MovePosition(currentGridPos);
+    }
+
+
+    public Vector2 GetGridPos() => currentGridPos;
+
+
+    void SnapToGrid()
+    {
+        float x = Mathf.Round(transform.position.x / gridSize) * gridSize;
+        float y = Mathf.Round(transform.position.y / gridSize) * gridSize;
+        currentGridPos = new Vector2(x, y);
+        rb.MovePosition(currentGridPos);
+    }
 }

@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 72840936}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,6 +154,7 @@ MonoBehaviour:
   moveTime: 0.75
   gridSize: 350
   followRange: 600
+  stunDuration: 2
 --- !u!50 &72840933
 Rigidbody2D:
   serializedVersion: 5
@@ -162,9 +163,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72840931}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
@@ -265,7 +266,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 1bcd7f625195f0942aa7fd3d558f3ed0, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -22664,7 +22665,7 @@ GameObject:
   - component: {fileID: 810860174}
   m_Layer: 0
   m_Name: EnemyC
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22684,6 +22685,7 @@ MonoBehaviour:
   moveTime: 0.75
   gridSize: 350
   followRange: 600
+  stunDuration: 2
 --- !u!50 &810860171
 Rigidbody2D:
   serializedVersion: 5
@@ -22692,9 +22694,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810860169}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
@@ -23300,7 +23302,7 @@ GameObject:
   - component: {fileID: 1349925358}
   m_Layer: 0
   m_Name: EnemyB
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23320,6 +23322,7 @@ MonoBehaviour:
   moveTime: 0.75
   gridSize: 350
   followRange: 600
+  stunDuration: 2
 --- !u!50 &1349925355
 Rigidbody2D:
   serializedVersion: 5
@@ -23328,9 +23331,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349925353}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
@@ -23557,7 +23560,7 @@ GameObject:
   - component: {fileID: 2023284205}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23575,6 +23578,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Movement
   moveTime: 0.15
+  gridSize: 160
+  stunDuration: 0.4
 --- !u!50 &2023284202
 Rigidbody2D:
   serializedVersion: 5
