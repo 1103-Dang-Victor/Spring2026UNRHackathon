@@ -10,6 +10,8 @@ public class PlayerStatHandler : MonoBehaviour
     private int currentDamage;
     public static event Action<int, int> OnHealthChanged;
 
+
+
     void Start()
     {
         currentHealth = 100;
@@ -28,16 +30,24 @@ public class PlayerStatHandler : MonoBehaviour
 */
     void OnEnable()
     {
+        //PowerUpHandler
         PowerUpHandler.MaxHealthPowerUp += MaxHealthPowerUpGrabbed;
         PowerUpHandler.CurrentHealthPowerUp += CurrentHealthPowerUpGrabbed;
         PowerUpHandler.DamagePowerUp += DamagePowerUpGrabbed;
+
+        //TrapHandler
+        TrapHandler.DamageTaken += TrapHit;
     }
 
     void OnDisable()
     {
+        //PowerUpHandler
         PowerUpHandler.MaxHealthPowerUp -= MaxHealthPowerUpGrabbed;
         PowerUpHandler.CurrentHealthPowerUp -= CurrentHealthPowerUpGrabbed;
         PowerUpHandler.DamagePowerUp -= DamagePowerUpGrabbed;
+
+        //TrapHandler
+        TrapHandler.DamageTaken -= TrapHit;
     }
 
     void MaxHealthPowerUpGrabbed(int statBonus)
@@ -64,6 +74,14 @@ public class PlayerStatHandler : MonoBehaviour
         Debug.Log(currentDamage);
     }
 
+    void TrapHit(int damage)
+    {
+        Debug.Log("i hit trap");
+        Debug.Log(currentHealth);
+        subtractFromCurrentHealth(damage);
+        Debug.Log(currentHealth);
+    }
+
     private void addToCurrentHealth(int newValue)
     {
         currentHealth += newValue;
@@ -73,12 +91,12 @@ public class PlayerStatHandler : MonoBehaviour
     private void subtractFromCurrentHealth(int newValue)
     {
         currentHealth -= newValue;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     private void updateMaxHealth(int newValue)
     {
         maxHealth += newValue;
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     private void subtractMaxHealth(int newValue)

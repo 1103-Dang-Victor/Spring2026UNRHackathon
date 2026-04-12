@@ -5,6 +5,7 @@ public class PlayerStatsUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerStatsText;
     private string PlayerHealth = "";
+    private const int BAR_LENGTH = 22;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,18 +27,16 @@ public class PlayerStatsUI : MonoBehaviour
 
     public char[] calculateNewHealthString(int newHealth, int maxHealth)
     {
-        int healthClamp = Mathf.Clamp(newHealth, 0, maxHealth);
-        char[] display = new char[maxHealth];
-        for (int i = 0; i < maxHealth; i++)
+        char[] display = new char[BAR_LENGTH];
+
+        float percent = (float)newHealth / maxHealth;
+        int filledAmount = Mathf.Clamp(Mathf.RoundToInt(percent * BAR_LENGTH), 0, BAR_LENGTH);
+
+        for (int i = 0; i < BAR_LENGTH; i++)
         {
-            if (i < healthClamp)
-            {
-                display[i] = '='; //health value
-            } else
-            {
-                display[i] = '-'; //empty value/lost health
-            }
+            display[i] = (i < filledAmount) ? '+' : '-';
         }
+
         return display;
     }
 
