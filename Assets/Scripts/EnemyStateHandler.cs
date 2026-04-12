@@ -8,6 +8,7 @@ public class EnemyStateHandler : MonoBehaviour
    private int maxShield;
    private int currentDamage;
    private bool dead = false;
+   //public static event Action<int> OnTakenDamageFromPlayer;
   
    void Update() {
        if (dead)
@@ -39,7 +40,7 @@ public class EnemyStateHandler : MonoBehaviour
    }
 
 
-   void DamageTaken(int damage)
+   public void DamageTaken(int damage)
    {
        Debug.Log("damage event received");
        Debug.Log(currentHealth);

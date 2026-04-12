@@ -9,6 +9,12 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 currentGridPos;
     private bool isMoving = false;
+    private float stunTimer = 0f;
+
+    public Player_Combat player_Combat;
+
+    
+
 
     void Start()
     {
@@ -32,7 +38,9 @@ public class Movement : MonoBehaviour
         else if (Keyboard.current.dKey.wasPressedThisFrame) input = Vector2.right;
         else if (Keyboard.current.sKey.wasPressedThisFrame) input = Vector2.down;
         else if (Keyboard.current.wKey.wasPressedThisFrame) input = Vector2.up;
-
+        if(Keyboard.current.spaceKey.wasPressedThisFrame){
+            player_Combat.Attack();
+        }
         if (input == Vector2.zero) return;
 
         float gs = GridManager.Instance.gridSize;
