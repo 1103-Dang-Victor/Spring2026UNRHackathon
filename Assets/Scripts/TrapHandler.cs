@@ -30,8 +30,11 @@ public class TrapHandler : MonoBehaviour
         if(collision.gameObject.CompareTag("SpikeTrap"))
         {
             TrapDamage = 5;
+
+
             Debug.Log("Hi");
             GrabbedDamagePowerUp(TrapDamage);
         }
     }
+
 }
