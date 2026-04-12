@@ -9,6 +9,9 @@ public class PlayerStatHandler : MonoBehaviour
     private int maxShield;
     private int currentDamage;
     public static event Action<int, int> OnHealthChanged;
+    private bool death = false;
+    private PlayerSpawner playerspawn;
+    public Transform deathSpawn;
 
 
 
@@ -21,13 +24,20 @@ public class PlayerStatHandler : MonoBehaviour
         currentDamage = 2;
     }
 
-/*
-    public void GrabbedMaxHealthPowerUp() {
-        Debug.Log("touch");
-        // Invoke the event if there are any subscribers
-        MaxHealthPowerUp?.Invoke();
+    
+    /*
+        public void GrabbedMaxHealthPowerUp() {
+            Debug.Log("touch");
+            // Invoke the event if there are any subscribers
+            MaxHealthPowerUp?.Invoke();
+        }
+    */
+
+    void Update()
+    {
+        
     }
-*/
+
     void OnEnable()
     {
         //PowerUpHandler
@@ -36,6 +46,7 @@ public class PlayerStatHandler : MonoBehaviour
         PowerUpHandler.DamagePowerUp += DamagePowerUpGrabbed;
 
         //TrapHandler
+        EnemyAI.DamageTaken += EnemyHit;
         TrapHandler.DamageTaken += TrapHit;
     }
 
@@ -47,6 +58,7 @@ public class PlayerStatHandler : MonoBehaviour
         PowerUpHandler.DamagePowerUp -= DamagePowerUpGrabbed;
 
         //TrapHandler
+        EnemyAI.DamageTaken -= EnemyHit;
         TrapHandler.DamageTaken -= TrapHit;
     }
 
@@ -82,6 +94,13 @@ public class PlayerStatHandler : MonoBehaviour
         Debug.Log(currentHealth);
     }
 
+    void EnemyHit(int damage)
+    {
+        Debug.Log(currentHealth);
+        subtractFromCurrentHealth(damage);
+        Debug.Log(currentHealth);    
+    }
+
     private void addToCurrentHealth(int newValue)
     {
         currentHealth += newValue;
@@ -91,6 +110,11 @@ public class PlayerStatHandler : MonoBehaviour
     private void subtractFromCurrentHealth(int newValue)
     {
         currentHealth -= newValue;
+        if(currentHealth <= 0)
+        {
+            death = true;
+            StartCoroutine(LevelManager.Instance.LoadScene("GameOver"));
+        }
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
