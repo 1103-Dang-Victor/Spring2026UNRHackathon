@@ -1,4 +1,4 @@
 Used Tools:
-AI Text Generation: ChatGPT, Gemini
+AI Code Generation Tools: ChatGPT, Gemini, Claude
 
 

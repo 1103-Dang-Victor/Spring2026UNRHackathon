@@ -64,7 +64,7 @@ public class PlayerStatHandler : MonoBehaviour
 
     void MaxHealthPowerUpGrabbed(int statBonus)
     {
-        Debug.Log("PowerUp event received!");
+        Debug.Log("MaxHealthPowerup event received!");
         Debug.Log(maxHealth);
         updateMaxHealth(statBonus); // your private method
         Debug.Log(maxHealth);
@@ -72,7 +72,7 @@ public class PlayerStatHandler : MonoBehaviour
 
     void CurrentHealthPowerUpGrabbed(int statBonus)
     {
-        Debug.Log("PowerUp event received!");
+        Debug.Log("CurrHealthPowerup event received!");
         Debug.Log(currentHealth);
         addToCurrentHealth(statBonus); // your private method
         Debug.Log(currentHealth);
@@ -80,7 +80,7 @@ public class PlayerStatHandler : MonoBehaviour
 
     void DamagePowerUpGrabbed(int statBonus)
     {
-        Debug.Log("PowerUp event received!");
+        Debug.Log("DamagePowerup event received!");
         Debug.Log(currentDamage);
         addToCurrentDamage(statBonus); // your private method
         Debug.Log(currentDamage);
