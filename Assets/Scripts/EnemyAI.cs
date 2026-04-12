@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class EnemyAI : MonoBehaviour
     private Vector2 currentGridPos;
     private bool isMoving = false;
     private float stunTimer = 0f;
+    public static event Action<int> DamageTaken;
 
     void Start()
     {
@@ -49,7 +52,9 @@ public class EnemyAI : MonoBehaviour
         // If adjacent to player, deal damage and stun self
         if (dist < gs * 1.1f)
         {
+            Debug.Log("im stun");
             stunTimer = stunDuration;
+            DamageTaken?.Invoke(10);
             return;
         }
 
