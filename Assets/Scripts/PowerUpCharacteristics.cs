@@ -9,7 +9,7 @@ public class PowerUpCharacteristics : MonoBehaviour
     public string spriteTitle;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         sr = GetComponent<SpriteRenderer>(); 
         spriteTitle = sr.sprite.name;
@@ -29,6 +29,11 @@ public class PowerUpCharacteristics : MonoBehaviour
                 statBonus = 4;
                 break;
         }
+    }
+
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame

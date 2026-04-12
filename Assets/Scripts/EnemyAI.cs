@@ -52,7 +52,7 @@ public class EnemyAI : MonoBehaviour
         // If adjacent to player, deal damage and stun self
         if (dist < gs * 1.1f)
         {
-            Debug.Log("im stun");
+            //Debug.Log("im stun");
             stunTimer = stunDuration;
             DamageTaken?.Invoke(10);
             return;

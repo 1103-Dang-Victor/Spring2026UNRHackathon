@@ -24,7 +24,7 @@ public class PlayerItemsUI : MonoBehaviour
 
     public char[] CalculateNewItemString(char newItem)
     {
-        char[] display = new char[20];
+        char[] display = playerItemText.text == "empty" ? new char[20] : playerItemText.text.ToCharArray();
         if (playerItemText.text == "empty")
         {
             display[0] = newItem;

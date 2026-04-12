@@ -4,6 +4,9 @@ using System.Collections.Generic;
 public class EnemyColliderHandler : MonoBehaviour
 {
     private HashSet<EnemyStateHandler> hitEnemies = new HashSet<EnemyStateHandler>();
+    public PlayerStatHandler playerStats;
+
+
     private void OnEnable()
     {
         hitEnemies.Clear(); // reset every attack
@@ -13,12 +16,22 @@ public class EnemyColliderHandler : MonoBehaviour
 
         EnemyStateHandler enemy = other.GetComponentInParent<EnemyStateHandler>();
 
+        PlayerStatHandler player = other.GetComponentInParent<PlayerStatHandler>();
+
+        if (playerStats == null)
+        {
+            Debug.LogWarning("No PlayerStatHandler found on object or parents!");
+            return;
+        }
+
+        int damage = playerStats.currentDamage;
+        
         if (enemy != null && !hitEnemies.Contains(enemy))
         {
             hitEnemies.Add(enemy);
 
             Debug.Log("Damage Taken!");
-            enemy.DamageTaken(25);
+            enemy.DamageTaken(damage);
         }
     }
 }

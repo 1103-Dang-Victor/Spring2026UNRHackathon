@@ -20,11 +20,11 @@ public class EnemyStateHandlerBoss : MonoBehaviour
 
    void Start()
    {
-       currentHealth = 500;
-       maxHealth = 500;
+       currentHealth = 250;
+       maxHealth = 250;
        currentShield = 0;
        maxShield = 20;
-       currentDamage = 4;
+       currentDamage = 2;
    }
 
 

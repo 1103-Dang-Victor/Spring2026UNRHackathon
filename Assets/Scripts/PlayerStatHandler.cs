@@ -7,7 +7,7 @@ public class PlayerStatHandler : MonoBehaviour
     private int maxHealth;
     private int currentShield;
     private int maxShield;
-    private int currentDamage;
+    public int currentDamage;
     public static event Action<int, int> OnHealthChanged;
     private bool death = false;
     private PlayerSpawner playerspawn;
@@ -21,7 +21,7 @@ public class PlayerStatHandler : MonoBehaviour
         maxHealth = 100;
         currentShield = 0;
         maxShield = 20;
-        currentDamage = 2;
+        currentDamage = 25;
     }
 
     

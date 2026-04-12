@@ -34,19 +34,19 @@ public class PowerUpHandler : MonoBehaviour
     public void GrabbedMaxHealthPowerUp(int sb) {
         Debug.Log("touch");
         // Invoke the event if there are any subscribers
-        MaxHealthPowerUp?.Invoke(PowerUpStats.statBonus);
+        MaxHealthPowerUp?.Invoke(sb);
     }
     
     public void GrabbedCurrentHealthPowerUp(int sb) {
         Debug.Log("touch");
         // Invoke the event if there are any subscribers
-        CurrentHealthPowerUp?.Invoke(PowerUpStats.statBonus);
+        CurrentHealthPowerUp?.Invoke(sb);
     }
 
     public void GrabbedDamagePowerUp(int sb) {
         Debug.Log("touch");
         // Invoke the event if there are any subscribers
-        DamagePowerUp?.Invoke(PowerUpStats.statBonus);
+        DamagePowerUp?.Invoke(sb);
     }
 
         // check what sprite it's using, and then classify based on that 
@@ -66,19 +66,22 @@ public class PowerUpHandler : MonoBehaviour
                 case "gs_plus": // current health 
                     OnItemCollected?.Invoke('+');
                     particles.Play();
-                    GrabbedCurrentHealthPowerUp(PowerUpStats.statBonus);
+                    CurrentHealthPowerUp?.Invoke(PowerUpStats.statBonus);
+                    //GrabbedCurrentHealthPowerUp(PowerUpStats.statBonus);
                     //
                     break;
                 case "gs_star": // max health 
-                OnItemCollected?.Invoke('*');
+                    OnItemCollected?.Invoke('*');
                     particles.Play();
-                    GrabbedMaxHealthPowerUp(PowerUpStats.statBonus);
+                    MaxHealthPowerUp?.Invoke(PowerUpStats.statBonus);
+                    //GrabbedMaxHealthPowerUp(PowerUpStats.statBonus);
                     //
                     break;
                 case "gs_carat": // damage
                     OnItemCollected?.Invoke('^');
+                    DamagePowerUp?.Invoke(PowerUpStats.statBonus);
                     particles.Play();
-                    GrabbedDamagePowerUp(PowerUpStats.statBonus);
+                    //GrabbedDamagePowerUp(PowerUpStats.statBonus);
                     break;
                 default:
                     break;

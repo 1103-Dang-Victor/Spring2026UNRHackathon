@@ -43,9 +43,9 @@ public class EnemyStateHandler : MonoBehaviour
    public void DamageTaken(int damage)
    {
        Debug.Log("damage event received");
-       Debug.Log(currentHealth);
+       //Debug.Log(currentHealth);
        subtractFromCurrentHealth(damage);
-       Debug.Log(currentHealth);
+       Debug.Log($"this enemy's health is now: {currentHealth}");
    }
 
 
