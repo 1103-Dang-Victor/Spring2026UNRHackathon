@@ -19,7 +19,7 @@ public class CameraTracker : MonoBehaviour
     {
 
 
-        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10f);
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -670.15f);
         Vector3 smoothPosition = Vector3.Lerp(transform.position, targetPosition, smoothFactor*Time.fixedDeltaTime);
         cameraTarget.position = smoothPosition;
     }
