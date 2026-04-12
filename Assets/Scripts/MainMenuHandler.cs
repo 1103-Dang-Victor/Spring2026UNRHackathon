@@ -8,7 +8,7 @@ public class MainMenuHandler : MonoBehaviour
     public void HandleStartButton()
     {
         //dotween? animation effect 
-        StartCoroutine(LevelManager.Instance.LoadScene("SampleScene"));
+        StartCoroutine(LevelManager.Instance.LoadScene("MoveDebug"));
         
     }
 
