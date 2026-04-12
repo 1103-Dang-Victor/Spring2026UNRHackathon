@@ -27,16 +27,24 @@ public class PlayerStatHandler : MonoBehaviour
 */
     void OnEnable()
     {
+        //PowerUpHandler
         PowerUpHandler.MaxHealthPowerUp += MaxHealthPowerUpGrabbed;
         PowerUpHandler.CurrentHealthPowerUp += CurrentHealthPowerUpGrabbed;
         PowerUpHandler.DamagePowerUp += DamagePowerUpGrabbed;
+
+        //TrapHandler
+        TrapHandler.DamageTaken += TrapHit;
     }
 
     void OnDisable()
     {
+        //PowerUpHandler
         PowerUpHandler.MaxHealthPowerUp -= MaxHealthPowerUpGrabbed;
         PowerUpHandler.CurrentHealthPowerUp -= CurrentHealthPowerUpGrabbed;
         PowerUpHandler.DamagePowerUp -= DamagePowerUpGrabbed;
+
+        //TrapHandler
+        TrapHandler.DamageTaken -= TrapHit;
     }
 
     void MaxHealthPowerUpGrabbed(int statBonus)
@@ -61,6 +69,14 @@ public class PlayerStatHandler : MonoBehaviour
         Debug.Log(currentDamage);
         addToCurrentDamage(statBonus); // your private method
         Debug.Log(currentDamage);
+    }
+
+    void TrapHit(int damage)
+    {
+        Debug.Log("i hit trap");
+        Debug.Log(currentHealth);
+        subtractFromCurrentHealth(damage);
+        Debug.Log(currentHealth);
     }
 
     private void addToCurrentHealth(int newValue)
