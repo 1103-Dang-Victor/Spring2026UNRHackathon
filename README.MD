@@ -4,3 +4,4 @@ The game is an ASCII-style roguelike/dungeon crawler. Playing as a humble 'O', y
 
 **Developed by**: Kaito Fukuda, Victor Dang, Victoria Nguyen, Adam Santos
 **AI Tools Used**: ChatGPT, Gemini, Claude
+[Devpost Hackathon Link](https://biggest-little-hackathon-2026.devpost.com) 
